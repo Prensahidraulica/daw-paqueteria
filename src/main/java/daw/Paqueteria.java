@@ -118,57 +118,39 @@ public class Paqueteria {
     // Función que calcula la tarifa base del envío en función de la zona de envío y del peso del paquete
     public static double calcularTarifaEnvio(double peso, char zona) {
         double costeBase;
-        double costeTotal = 0;
 
         switch (zona) {
-            case 'A':
-                costeBase = 10.0;
+            case 'A': 
+                costeBase = 10.0; 
                 break;
-            case 'B':
-                costeBase = 15.0;
+
+            case 'B': 
+                costeBase = 15.0; 
                 break;
-            case 'C':
-                costeBase = 20.0;
+            case 'C': 
+                costeBase = 20.0; 
                 break;
-            default:
-                throw new IllegalArgumentException("Zona de destino no válida. Debe ser A, B o C.");
+            default: return -1; // zona inválida
         }
 
-        do {
-            if (peso < 5 && peso > 0) {
-                costeTotal = costeBase;
-                repetir = false;
-            } else if (peso >= 5 && peso < 10) {
-                costeTotal = costeBase + 5.0;
-                repetir = false;
-            } else if (peso >= 10) {
-                costeTotal = costeBase + 10.0;
-                repetir = false;
-            } else {
-                throw new IllegalArgumentException("Peso no válido. Debe ser un número positivo.");
-            }
-        } while (repetir);
-        
+        if (peso <= 0) return -1;
 
-        return costeTotal;
+        if (peso < 5) return costeBase;
+
+        if (peso < 10) return costeBase + 5.0;
+
+        return costeBase + 10.0;
     }
 
     // Función que verifica que el identificador del paquete tiene 4 caracteres y estos dígitos están entre 1 y 9
     public static boolean validarIdentificador(String id){
-        boolean valido = true;
+        if (id.length() != 4) return false;
 
-        if (id.length() != 4){
-            return valido = false;
+        for (char c : id.toCharArray()) {
+            if (c < '1' || c > '9')
+                return false;
         }
-
-        for (int i = 0; i < id.length(); i++) {
-            char caracter = id.charAt(i);
-            if (caracter < '1' || caracter > '9') {
-                return valido = false;
-            }
-        }
-
-        return valido;
+        return true;
     }
 
     // Función que reparte la carga de paquetes entre los camiones disponibles
@@ -176,15 +158,11 @@ public class Paqueteria {
     // División entera entre el total de paquetes y el número de camiones
 
     public static int repartirCarga(int totalPaquetes, int camiones) {
-        int cargaPorCamion = 0;
         try {
-            cargaPorCamion = totalPaquetes / camiones;
-        } catch (ArithmeticException ae) {
-            System.out.println("Error: El número de camiones no puede ser cero.");
+            return totalPaquetes / camiones;
+        } catch (ArithmeticException e) {
             return 0;
         }
-        
-        return cargaPorCamion;
     }
 
 }
