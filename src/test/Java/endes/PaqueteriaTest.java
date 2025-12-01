@@ -1,28 +1,37 @@
 package endes;
-import daw.Paqueteria;
+import java.daw.Paqueteria;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class PaqueteriaTest {
     @Test 
     public void testCalcularTarizaZonaA() {
-        int resultado = Paqueteria.calcularTarifaEnvio(3, "A");
-        assertEquals(10, resultado, "La tarifa para zona A y peso 3 debería ser 10.");
+        boolean resultado = false;
+        if (Paqueteria.calcularTarifaEnvio(3, "A") == 10) {
+            resultado = true;
+        }
+        assertTrue(resultado, "La tarifa para zona A y peso 3 debería ser 10.");
     }
 
     @Test 
     public void testCalcularTarifaZonaBConSuplemento() {
-        int resultado = Paqueteria.calcularTarifaEnvio(6, "B");
-        assertEquals(20, resultado, "La tarifa para zona B y peso 6 debería ser 20.");
+        boolean resultado = false;
+        if (Paqueteria.calcularTarifaEnvio(6, "B") == 20) {
+            resultado = true;
+        }
+        assertTrue(resultado, "La tarifa para zona B y peso 6 debería ser 20.");
     }
 
     @Test 
     public void testCalcularTarifaPesoInvalido() {
-        int resultado = Paqueteria.calcularTarifaEnvio(-5, "A");
-        assertEquals(-1, resultado, "El peso no debe ser negativo.");
+        boolean resultado = false;
+        if (Paqueteria.calcularTarifaEnvio(-5, "A") == -1) {
+            resultado = true;
+        }
+        assertTrue(resultado, "El peso no debe ser negativo.");
     }
 
-    @Test 
+    @Test
     public void testValidarIdentificadorCorrecto() {
         boolean resultado = Paqueteria.validarIdentificador("1234");
         assertTrue(resultado, "El identificador debería ser válido.");
@@ -41,21 +50,31 @@ public class PaqueteriaTest {
     }
 
     @Test 
-    public void testRepartirCargaCorrecta() {
-        int resultado = Paqueteria.repartirCarga(10, 2);
-        assertEquals(5, resultado, "Cada camión debería llevar 5 paquetes.");
+    public void testRepartirCargaCorrecta() { 
+        boolean resultado = false;
+        if (Paqueteria.repartirCarga(10, 2) == 5) {
+            resultado = true;
+            
+        }
+        assertTrue(resultado, "Cada camión debería llevar 5 paquetes.");
     }
 
     @Test 
     public void testRepartirCargaConResto() {
-        int resultado = Paqueteria.repartirCarga(10, 3);
-        assertEquals(3, resultado, "Cada camión debería llevar 3 paquetes.");
+        boolean resultado = false;
+        if (Paqueteria.repartirCarga(10, 3) == 3) {
+            resultado = true;
+        }
+        assertTrue(resultado, "Cada camión debería llevar 3 paquetes.");
     }
 
     @Test 
     public void testRepartirCargaErrorCero() {
-        int resultado = Paqueteria.repartirCarga(50, 0);
-        assertEquals(0, resultado, "El resultado debería ser 0 cuando el número de camiones es cero.");
+        boolean resultado = false;
+        if (Paqueteria.repartirCarga(50, 0) == 0) {
+            resultado = true;
+        }
+        assertTrue(resultado, "El resultado debería ser 0 cuando el número de camiones es cero.");
     }
 
 }
